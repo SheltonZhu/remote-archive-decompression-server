@@ -1,0 +1,50 @@
+run:
+  timeout: 1m
+
+linters:
+  disable-all: true
+  # Enable specific linter
+  # https://golangci-lint.run/usage/linters/#enabled-by-default
+  enable:
+    - errcheck # Errcheck is a program for checking for unchecked errors in go programs. These unchecked errors can be critical bugs in some cases
+    - gosimple # Linter for Go source code that specializes in simplifying a code
+    - govet # Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string
+    - ineffassign # Detects when assignments to existing variables are not used
+    - staticcheck # Staticcheck is a go vet on steroids, applying a ton of static analysis checks
+    # - structcheck   # Finds unused struct fields
+    - typecheck # Like the front-end of a Go compiler, parses and type-checks Go code
+    - unused # Checks Go code for unused constants, variables, functions and types
+    # - varcheck      # Finds unused global variables and constants
+    - exportloopref # checks for pointers to enclosing loop variables
+    - revive # fast, configurable, extensible, flexible, and beautiful linter for Go, drop-in replacement of golint
+  disable:
+    - exported
+
+linters-settings:
+  govet:
+    check-shadowing: true
+    check-unreachable: true
+    check-rangeloops: true
+    check-copylocks: true
+  maligned:
+    suggest-new: true # 内存对齐优化结构体字段排序建议
+    auto-fix: true
+  errcheck:
+    check-type-assertions: true # 检查类型断言
+    # check-blank: true             # 检查使用 _ 来处理错误
+  errorlint:
+    errorf: true # 检查fmt.Errorf错误是否用%w
+  stylecheck:
+    go: "1.21.0"
+    # https://staticcheck.io/docs/options#checks
+    checks:
+      [
+        "all",
+        "-ST1000",
+        "-ST1003",
+        "-ST1016",
+        "-ST1020",
+        "-ST1021",
+        "-ST1022",
+        "-ST1019",
+      ]
